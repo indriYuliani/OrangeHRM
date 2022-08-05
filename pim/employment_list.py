@@ -89,9 +89,9 @@ class AddUser(unittest.TestCase):
         first_name.send_keys('')
         time.sleep(1)
 
-        first_name = driver.find_element(By.ID, 'lastName')
-        first_name.clear()
-        first_name.send_keys('')
+        last_name = driver.find_element(By.ID, 'lastName')
+        last_name.clear()
+        last_name.send_keys('')
         time.sleep(1)
 
         # Click Save

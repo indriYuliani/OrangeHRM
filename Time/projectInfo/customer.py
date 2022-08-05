@@ -1,4 +1,6 @@
+from importlib.metadata import distribution
 import unittest
+from xml.etree.ElementTree import Comment
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -7,10 +9,8 @@ from selenium.webdriver.support.ui import Select
 import time
 
 
-class AddUser(unittest.TestCase):     
-        
-     #validasi  
-    def test_add_user_inputan_kosong(self):
+class customer(unittest.TestCase):
+    def test_add(self):
         base_url = 'https://opensource-demo.orangehrmlive.com/'
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
@@ -30,33 +30,88 @@ class AddUser(unittest.TestCase):
 
         login_btn.click()
 
-        # Admin Link Click
-        driver.find_element(By.LINK_TEXT, 'PIM').click()
-        driver.find_element(By.LINK_TEXT, 'Reports').click()
+      
 
-        # Click Add
-        edit = driver.find_element(By.ID, 'btnAdd')
-        edit.click()
+        # Admin Link Click
+        driver.find_element(By.LINK_TEXT, 'Time').click()
+        driver.find_element(By.LINK_TEXT, 'Project Info').click()
+        driver.find_element(By.LINK_TEXT, 'Customers').click()
+
+         #btn add
+        btnadd = driver.find_element(By.CSS_SELECTOR, '#btnAdd')
+        btnadd.click()
         time.sleep(3)
 
-        # Click Add pay
-        report_name = driver.find_element(By.ID, 'report_report_name')
-        report_name.clear()
-        report_name.send_keys('')
+        # Click Add customer
+        customer = driver.find_element(By.ID, 'addCustomer_customerName')
+        customer.clear()
+        customer.send_keys('Ananya')
         time.sleep(1)
 
-       
+        deskripsi = driver.find_element(By.ID, 'addCustomer_description')
+        deskripsi.clear()
+        deskripsi.send_keys('ok')
 
+       
         # Click Save
         save = driver.find_element(By.ID, 'btnSave')
         save.click()
-        time.sleep(2)            
+        time.sleep(2)       
+        
+      #validasi  
+    def test_add_inputan_kosong(self):
+        base_url = 'https://opensource-demo.orangehrmlive.com/'
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        driver.maximize_window()
+        driver.get(base_url)
+
+        # Find Elements
+        username = driver.find_element(By.XPATH, '//*[@id="txtUsername"]')
+        password = driver.find_element(By.CSS_SELECTOR, '#txtPassword')
+        login_btn = driver.find_element(By.ID, 'btnLogin')
+
+        # Login Action
+        username.clear()
+        username.send_keys('Admin')
+
+        password.clear()
+        password.send_keys('admin123')
+
+        login_btn.click()
+
+      
+        # Admin Link Click
+        driver.find_element(By.LINK_TEXT, 'Time').click()
+        driver.find_element(By.LINK_TEXT, 'Project Info').click()
+        driver.find_element(By.LINK_TEXT, 'Customers').click()
+
+          #btn add
+        btnadd = driver.find_element(By.ID, 'btnAdd')
+        btnadd.click()
+        time.sleep(3)
+
+
+        # Click Add customer
+        customer = driver.find_element(By.ID, 'addCustomer_customerName')
+        customer.clear()
+        customer.send_keys('')
+        time.sleep(1)
+
+        deskripsi = driver.find_element(By.ID, 'addCustomer_description')
+        deskripsi.clear()
+        deskripsi.send_keys('ok')
+
+       
+        # Click Save
+        save = driver.find_element(By.ID, 'btnSave')
+        save.click()
+        time.sleep(2)       
+        
 
         response_data = driver.find_element(By.CLASS_NAME,"validation-error").text
         self.assertIn(response_data,"Required")
 
-       # pencarian
-    def test_search_user(self):
+    def test_hapus(self):
         base_url = 'https://opensource-demo.orangehrmlive.com/'
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
@@ -76,61 +131,33 @@ class AddUser(unittest.TestCase):
 
         login_btn.click()
 
+      
         # Admin Link Click
-        driver.find_element(By.LINK_TEXT, 'PIM').click()
-        driver.find_element(By.LINK_TEXT, 'Reports').click()
+        driver.find_element(By.LINK_TEXT, 'Time').click()
+        driver.find_element(By.LINK_TEXT, 'Project Info').click()
+        driver.find_element(By.LINK_TEXT, 'Customers').click()
 
-        # Click pencarian
-        cari = driver.find_element(By.CLASS_NAME, 'ac_input')
-        cari.clear()
-        cari.send_keys('PIM Sample Report')
+          #btn add
+        btnadd = driver.find_element(By.ID, 'btnAdd')
+        btnadd.click()
+        time.sleep(3)
+
+
+        # Click Add customer
+        customer = driver.find_element(By.ID, 'addCustomer_customerName')
+        customer.clear()
+        customer.send_keys('')
         time.sleep(1)
+
+        
+        
 
        
         # Click Save
-        cari = driver.find_element(By.CLASS_NAME, 'searchBtn')
-        cari.click()
-        time.sleep(4)       
+        save = driver.find_element(By.ID, 'btnSave')
+        save.click()
+        time.sleep(2)       
 
-        #validasi pencarian
-    def test_search_user(self):
-        base_url = 'https://opensource-demo.orangehrmlive.com/'
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        driver.maximize_window()
-        driver.get(base_url)
-
-        # Find Elements
-        username = driver.find_element(By.XPATH, '//*[@id="txtUsername"]')
-        password = driver.find_element(By.CSS_SELECTOR, '#txtPassword')
-        login_btn = driver.find_element(By.ID, 'btnLogin')
-
-        # Login Action
-        username.clear()
-        username.send_keys('Admin')
-
-        password.clear()
-        password.send_keys('admin123')
-
-        login_btn.click()
-
-        # Admin Link Click
-        driver.find_element(By.LINK_TEXT, 'PIM').click()
-        driver.find_element(By.LINK_TEXT, 'Reports').click()
-
-        # Click pencarian
-        cari = driver.find_element(By.CLASS_NAME, 'ac_input')
-        cari.clear()
-        cari.send_keys('anu')
-        time.sleep(1)
-
-       
-        # Click Save
-        cari = driver.find_element(By.CLASS_NAME, 'searchBtn')
-        cari.click()
-        time.sleep(4)       
-
-        response_data = driver.find_element(By.CSS_SELECTOR,"#resultTable > tbody > tr > td").text
-        self.assertIn(response_data,"No Records Found")
 
 
         driver.close()

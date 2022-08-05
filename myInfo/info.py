@@ -1,4 +1,5 @@
 import unittest
+from requests import delete
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -7,10 +8,8 @@ from selenium.webdriver.support.ui import Select
 import time
 
 
-class AddUser(unittest.TestCase):     
-        
-     #validasi  
-    def test_add_user_inputan_kosong(self):
+class info(unittest.TestCase):
+    def test_a_edit(self):
         base_url = 'https://opensource-demo.orangehrmlive.com/'
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
@@ -31,32 +30,26 @@ class AddUser(unittest.TestCase):
         login_btn.click()
 
         # Admin Link Click
-        driver.find_element(By.LINK_TEXT, 'PIM').click()
-        driver.find_element(By.LINK_TEXT, 'Reports').click()
-
-        # Click Add
-        edit = driver.find_element(By.ID, 'btnAdd')
+        driver.find_element(By.LINK_TEXT, 'My Info').click()
+        
+        # Click Aedit
+        edit = driver.find_element(By.ID, 'btnSave')
         edit.click()
         time.sleep(3)
 
-        # Click Add pay
-        report_name = driver.find_element(By.ID, 'report_report_name')
-        report_name.clear()
-        report_name.send_keys('')
+        # Click edit data
+        military_Service = driver.find_element(By.ID, 'personal_txtMilitarySer')
+        military_Service.clear()
+        military_Service.send_keys('none')
         time.sleep(1)
-
-       
 
         # Click Save
         save = driver.find_element(By.ID, 'btnSave')
         save.click()
-        time.sleep(2)            
-
-        response_data = driver.find_element(By.CLASS_NAME,"validation-error").text
-        self.assertIn(response_data,"Required")
-
-       # pencarian
-    def test_search_user(self):
+        time.sleep(2)       
+        
+        #hapus
+    def test_a_edit(self):
         base_url = 'https://opensource-demo.orangehrmlive.com/'
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
@@ -77,23 +70,26 @@ class AddUser(unittest.TestCase):
         login_btn.click()
 
         # Admin Link Click
-        driver.find_element(By.LINK_TEXT, 'PIM').click()
-        driver.find_element(By.LINK_TEXT, 'Reports').click()
+        driver.find_element(By.LINK_TEXT, 'My Info').click()
+        
+        # Click Aedit
+        edit = driver.find_element(By.ID, 'btnSave')
+        edit.click()
+        time.sleep(3)
 
-        # Click pencarian
-        cari = driver.find_element(By.CLASS_NAME, 'ac_input')
-        cari.clear()
-        cari.send_keys('PIM Sample Report')
+        # Click edit data
+        military_Service = driver.find_element(By.ID, 'personal_txtMilitarySer')
+        military_Service.clear()
+        military_Service.send_keys('none')
         time.sleep(1)
 
-       
         # Click Save
-        cari = driver.find_element(By.CLASS_NAME, 'searchBtn')
-        cari.click()
-        time.sleep(4)       
+        save = driver.find_element(By.ID, 'btnSave')
+        save.click()
+        time.sleep(2)  
 
-        #validasi pencarian
-    def test_search_user(self):
+
+    def test_delete(self):
         base_url = 'https://opensource-demo.orangehrmlive.com/'
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
@@ -114,23 +110,17 @@ class AddUser(unittest.TestCase):
         login_btn.click()
 
         # Admin Link Click
-        driver.find_element(By.LINK_TEXT, 'PIM').click()
-        driver.find_element(By.LINK_TEXT, 'Reports').click()
-
-        # Click pencarian
-        cari = driver.find_element(By.CLASS_NAME, 'ac_input')
-        cari.clear()
-        cari.send_keys('anu')
+        driver.find_element(By.LINK_TEXT, 'My Info').click()
+    
+        # Click edit data
+        military_Service = driver.find_element(By.ID, 'attachmentsCheckAll')
+        military_Service.click()
         time.sleep(1)
 
-       
         # Click Save
-        cari = driver.find_element(By.CLASS_NAME, 'searchBtn')
-        cari.click()
-        time.sleep(4)       
-
-        response_data = driver.find_element(By.CSS_SELECTOR,"#resultTable > tbody > tr > td").text
-        self.assertIn(response_data,"No Records Found")
+        delete = driver.find_element(By.ID, 'btnDeleteAttachment')
+        delete.click()
+        time.sleep(2)  
 
 
         driver.close()
